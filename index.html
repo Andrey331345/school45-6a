@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6 «А» Класс — МБОУ «СОШ №45» г. Калуги</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style id="custom-dynamic-styles">
+    :root {
+      --bg-primary: #090d16;
+      --bg-secondary: #111827;
+      --bg-glass: rgba(17, 24, 39, 0.72);
+      --border-glass: rgba(255, 255, 255, 0.1);
+      --accent-primary: #6366f1;
+      --accent-secondary: #06b6d4;
+      --accent-glow: rgba(99, 102, 241, 0.4);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+    }
+  </style>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* Animated Background Blobs */
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(110px);
+      z-index: -1;
+      opacity: 0.45;
+      animation: floatOrb 16s infinite alternate ease-in-out;
+      pointer-events: none;
+    }
+    .orb-1 {
+      width: 420px;
+      height: 420px;
+      background: var(--accent-primary);
+      top: -100px;
+      left: -100px;
+    }
+    .orb-2 {
+      width: 380px;
+      height: 380px;
+      background: var(--accent-secondary);
+      bottom: -80px;
+      right: -80px;
+      animation-delay: -6s;
+    }
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(50px, 40px) scale(1.12); }
+    }
+
+    /* Glassmorphism Utilities */
+    .glass {
+      background: var(--bg-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-glass);
+      border-radius: 16px;
+    }
+
+    /* Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(9, 13, 22, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-glass);
+      padding: 0.85rem 1.5rem;
+    }
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 800;
+      font-size: 1.15rem;
+      cursor: pointer;
+    }
+    .logo-badge {
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      padding: 0.4rem 0.65rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      box-shadow: 0 0 18px var(--accent-glow);
+    }
+    .nav-links {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+    .nav-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 0.5rem 0.85rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .nav-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .nav-btn.active {
+      color: #fff;
+      background: rgba(99, 102, 241, 0.2);
+      border-color: rgba(99, 102, 241, 0.45);
+    }
+    .user-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .btn {
+      padding: 0.55rem 1rem;
+      border-radius: 10px;
+      border: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+align-items: center;
+      gap: 0.45rem;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-primary), #4f46e5);
+      color: #fff;
+      box-shadow: 0 4px 15px var(--accent-glow);
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.1);
+    }
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-glass);
+      color: var(--text-main);
+    }
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+    .section {
+      display: none;
+      animation: fadeSlideUp 0.4s ease forwards;
+    }
+    .section.active {
+      display: block;
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 3.5rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 2rem;
+      background: linear-gradient(145deg, rgba(17, 24, 39, 0.85), rgba(30, 41, 59, 0.65));
+    }
+    .hero-tag {
+      display: inline-block;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: rgba(6, 182, 212, 0.15);
+      color: #67e8f9;
+      border: 1px solid rgba(6, 182, 212, 0.35);
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 4.5vw, 3.3rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, #fff, #cbd5e1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      max-width: 680px;
+      margin: 0 auto 2rem;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Stats Grid */
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      padding: 1.5rem;
+      transition: transform 0.25s ease;
+    }
+    .stat-card:hover {
+      transform: translateY(-4px);
+    }
+    .stat-val {
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 0.35rem 0;
+      color: #fff;
+    }
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    /* Schedule & Moya Shkola */
+    .day-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .day-tab {
+      padding: 0.55rem 1.1rem;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      color: var(--text-muted);
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .day-tab.active {
+      background: var(--accent-primary);
+      color: #fff;
+      border-color: var(--accent-primary);
+    }
+    .sync-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid var(--success);
+    }
+    .lesson-card {
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .lesson-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: rgba(99, 102, 241, 0.2);
+      color: #a5b4fc;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin-right: 0.85rem;
+    }.hw-badge {
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #6ee7b7;
+      padding: 0.45rem 0.85rem;
+      border-radius: 10px;
+      font-size: 0.88rem;
+    }
+
+    /* News & Gallery */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .news-card {
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .news-cover {
+      height: 170px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(6, 182, 212, 0.25));
+    }
+    .news-body {
+      padding: 1.4rem;
+      flex: 1;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .photo-item {
+      height: 170px;
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-glass);
+      transition: transform 0.25s ease;
+    }
+    .photo-item:hover {
+      transform: scale(1.03);
+    }
+
+    /* Members Table & Badges */
+    .table-wrap {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    th, td {
+      padding: 1rem 1.2rem;
+      border-bottom: 1px solid var(--border-glass);
+    }
+    th {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .role-badge {
+      padding: 0.28rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .role-admin { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.4); }
+    .role-starosta { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.4); }
+    .role-editor { background: rgba(6, 182, 212, 0.2); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.4); }
+    .role-student { background: rgba(148, 163, 184, 0.16); color: #cbd5e1; }
+
+    /* Admin Code Editor */
+    .code-editor {
+      width: 100%;
+      min-height: 220px;
+      background: #050811;
+      color: #38bdf8;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88rem;
+      padding: 1rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-glass);
+      resize: vertical;
+      margin-bottom: 1rem;
+    }
+
+    /* Inputs & Modals */
+    input, select, textarea {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--border-glass);
+      color: #fff;
+      padding: 0.65rem 0.9rem;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.92rem;
+    }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 1rem;
+    }
+    .modal-backdrop.open {
+      display: flex;
+    }
+    .modal-box {
+      max-width: 440px;
+      width: 100%;
+      padding: 2rem;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .nav-container { flex-direction: column; align-items: stretch; }
+      .nav-links { justify-content: center; }
+      .user-actions { justify-content: center; }
+      .hero { padding: 2.2rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <div class="logo" onclick="switchTab('home')">
+        <span class="logo-badge">6 «А»</span>
+        <span>Школа №45 • Калуга</span>
+      </div>
+
+      <nav class="nav-links" id="nav-links"><button class="nav-btn active" data-tab="home" onclick="switchTab('home')">Главная</button>
+        <button class="nav-btn" data-tab="schedule" onclick="switchTab('schedule')">Расписание и ДЗ</button>
+        <button class="nav-btn" data-tab="news" onclick="switchTab('news')">Новости и Фото</button>
+        <button class="nav-btn" data-tab="members" onclick="switchTab('members')">Участники</button>
+        <button class="nav-btn" data-tab="announcements" onclick="switchTab('announcements')">Объявления</button>
+        <button class="nav-btn" data-tab="admin" id="admin-nav-btn" onclick="switchTab('admin')">⚙️ Управление</button>
+      </nav>
+
+      <div class="user-actions" id="user-panel"></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. HOME SECTION -->
+    <section id="sec-home" class="section active">
+      <div class="glass hero">
+        <span class="hero-tag">МБОУ «Средняя общеобразовательная школа №45» г. Калуги</span>
+        <h1>Официальный портал<br>нашего 6 «А» класса</h1>
+        <p>Единое цифровое пространство класса: актуальное расписание уроков, автоматическая синхронизация домашнего задания с системой «Моя Школа», новости, фотоархив и личный кабинет.</p>
+        <div class="hero-buttons">
+          <button class="btn btn-primary" onclick="switchTab('schedule')">📚 Открыть расписание и ДЗ</button>
+          <button class="btn btn-outline" onclick="switchTab('news')">📸 Фотогалерея класса</button>
+        </div>
+      </div>
+
+      <div class="grid-4">
+        <div class="glass stat-card">
+          <div class="stat-label">Учеников в 6 «А»</div>
+          <div class="stat-val" id="stat-students">28</div>
+          <div style="color: var(--success); font-size: 0.82rem;">● Все в строю</div>
+        </div>
+        <div class="glass stat-card">
+          <div class="stat-label">Интеграция «Моя Школа»</div>
+          <div class="stat-val" style="color: #38bdf8;">Активна</div>
+          <div style="color: var(--text-muted); font-size: 0.82rem;">ДЗ обновляется автоматически</div>
+        </div>
+        <div class="glass stat-card">
+          <div class="stat-label">Средний балл класса</div>
+          <div class="stat-val" style="color: #fbbf24;">4.68</div>
+          <div style="color: var(--success); font-size: 0.82rem;">▲ +0.12 за четверть</div>
+        </div>
+        <div class="glass stat-card">
+          <div class="stat-label">Ближайшее событие</div>
+          <div class="stat-val" style="font-size: 1.35rem; margin-top: 0.6rem;">Экскурсия в Музей космонавтики</div>
+          <div style="color: var(--text-muted); font-size: 0.82rem;">г. Калуга • Пятница</div>
+        </div>
+      </div>
+
+      <div class="glass" style="padding: 1.75rem;">
+        <h2 style="margin-bottom: 1rem;">📌 Важное сегодня</h2>
+        <div id="home-announcements-preview"></div>
+      </div>
+    </section>
+
+    <!-- 2. SCHEDULE & MOYA SHKOLA -->
+    <section id="sec-schedule" class="section">
+      <div class="glass sync-banner">
+        <div>
+          <strong style="color: var(--success);">✅ Синхронизация с ФГИС «Моя Школа» подключена</strong>
+          <div style="font-size: 0.85rem; color: var(--text-muted);" id="last-sync-text">Последнее обновление ДЗ: сегодня в 08:30 (Калуга, МСК)</div>
+        </div>
+        <button class="btn btn-primary" onclick="syncMoyaShkola()">🔄 Обновить ДЗ из «Моей Школы»</button>
+      </div>
+
+      <div class="day-tabs" id="day-tabs"></div>
+      <div id="schedule-list"></div>
+    </section>
+
+    <!-- 3. NEWS & PHOTO GALLERY -->
+    <section id="sec-news" class="section">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <h2>📰 Новости 6 «А» класса</h2>
+        <button class="btn btn-primary" onclick="openAddNewsModal()">+ Добавить новость</button>
+      </div>
+
+      <div class="news-grid" id="news-container"></div>
+
+      <h2 style="margin: 2rem 0 1rem;">📸 Фотогалерея класса</h2><div class="gallery-grid" id="gallery-container"></div>
+    </section>
+
+    <!-- 4. MEMBERS -->
+    <section id="sec-members" class="section">
+      <div class="glass" style="padding: 1.5rem;">
+        <h2 style="margin-bottom: 1rem;">👥 Участники 6 «А» класса и роли</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Ученик / Участник</th>
+                <th>Роль на сайте</th>
+                <th>Должность в классе</th>
+                <th>Статус</th>
+              </tr>
+            </thead>
+            <tbody id="members-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. ANNOUNCEMENTS -->
+    <section id="sec-announcements" class="section">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <h2>📢 Доска объявлений</h2>
+        <button class="btn btn-primary" onclick="addAnnouncementPrompt()">+ Новое объявление</button>
+      </div>
+      <div id="announcements-list"></div>
+    </section>
+
+    <!-- 6. ADMIN PANEL & CODE EDITOR -->
+    <section id="sec-admin" class="section">
+      <h2 style="margin-bottom: 1.5rem;">⚙️ Панель управления Администратора</h2>
+
+      <div class="news-grid">
+        <!-- Role Manager -->
+        <div class="glass" style="padding: 1.5rem;">
+          <h3 style="margin-bottom: 1rem;">👑 Назначение ролей участникам</h3>
+          <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+            <label style="font-size: 0.85rem; color: var(--text-muted);">Выберите участника:</label>
+            <select id="admin-user-select"></select>
+
+            <label style="font-size: 0.85rem; color: var(--text-muted);">Новая роль:</label>
+            <select id="admin-role-select">
+              <option value="admin">Администратор (Полный доступ)</option>
+              <option value="starosta">Староста класса</option>
+              <option value="editor">Редактор новостей и ДЗ</option>
+              <option value="student">Ученик 6 «А»</option>
+            </select>
+
+            <button class="btn btn-primary" onclick="assignRole()">Сохранить роль</button>
+          </div>
+        </div>
+
+        <!-- Live Code Editor -->
+        <div class="glass" style="padding: 1.5rem;">
+          <h3 style="margin-bottom: 0.5rem;">💻 Редактор кода сайта (CSS / Темы)</h3>
+          <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 0.85rem;">Изменяйте переменные цвета или CSS-код в реальном времени:</p>
+          <textarea id="live-css-editor" class="code-editor"></textarea>
+          <div style="display: flex; gap: 0.75rem;">
+            <button class="btn btn-primary" onclick="applyCustomCode()">▶ Применить код</button>
+            <button class="btn btn-outline" onclick="resetCustomCode()">Сбросить</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity Log -->
+      <div class="glass" style="padding: 1.5rem; margin-top: 1.5rem;">
+        <h3 style="margin-bottom: 1rem;">📜 Журнал активности сайта</h3>
+        <div id="activity-log-list" style="display: flex; flex-direction: column; gap: 0.6rem; max-height: 280px; overflow-y: auto;"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Auth / Profile Modal -->
+  <div class="modal-backdrop" id="auth-modal">
+    <div class="glass modal-box">
+      <h3 style="margin-bottom: 1rem;" id="modal-title">Личный кабинет / Вход</h3>
+      <div style="display: flex; flex-direction: column; gap: 0.9rem;">
+        <input type="text" id="login-name" placeholder="Введите ваше Имя и Фамилию" />
+        <select id="login-role">
+          <option value="admin">Войти как Администратор (Создатель)</option>
+          <option value="student">Зарегистрироваться как Ученик 6 «А»</option>
+        </select>
+        <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 0.5rem;"><button class="btn btn-outline" onclick="closeModal('auth-modal')">Отмена</button>
+          <button class="btn btn-primary" onclick="handleLogin()">Войти</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Photo Lightbox Modal -->
+  <div class="modal-backdrop" id="photo-modal" onclick="closeModal('photo-modal')">
+    <div class="glass modal-box" style="text-align: center; max-width: 520px;">
+      <div id="photo-modal-emoji" style="font-size: 6rem; margin-bottom: 1rem;"></div>
+      <h3 id="photo-modal-title" style="margin-bottom: 0.5rem;"></h3>
+      <p id="photo-modal-desc" style="color: var(--text-muted); margin-bottom: 1.2rem;"></p>
+      <button class="btn btn-primary" onclick="closeModal('photo-modal')">Закрыть</button>
+    </div>
+  </div>
+
+  <script>
+    // Initial State
+    const defaultCSS = `:root {
+  --bg-primary: #090d16;
+  --bg-secondary: #111827;
+  --bg-glass: rgba(17, 24, 39, 0.72);
+  --border-glass: rgba(255, 255, 255, 0.1);
+  --accent-primary: #6366f1;
+  --accent-secondary: #06b6d4;
+  --accent-glow: rgba(99, 102, 241, 0.4);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --success: #10b981;
+}`;
+
+    let currentUser = { name: 'Администратор 6 «А»', role: 'admin' };
+    let selectedDay = 'Понедельник';
+
+    const scheduleData = {
+      'Понедельник': [
+        { num: 1, subject: 'Разговоры о важном', room: 'Каб. 204', hw: 'Без домашнего задания' },
+        { num: 2, subject: 'Математика', room: 'Каб. 312', hw: 'Учебник §14, №412, 415 (из «Моей Школы»)' },
+        { num: 3, subject: 'Русский язык', room: 'Каб. 204', hw: 'Упр. 184, выучить правило на стр. 92' },
+        { num: 4, subject: 'История', room: 'Каб. 108', hw: 'Параграф 11, ответить на вопросы 1-3' },
+        { num: 5, subject: 'Физкультура', room: 'Спортзал', hw: 'Спортивная форма' }
+      ],
+      'Вторник': [
+        { num: 1, subject: 'Английский язык', room: 'Каб. 215', hw: 'Workbook p. 28 ex. 2, 3' },
+        { num: 2, subject: 'Математика', room: 'Каб. 312', hw: 'Решить карточки на платформе «Моя Школа»' },
+        { num: 3, subject: 'Литература', room: 'Каб. 204', hw: 'Читать повесть А.С. Пушкина «Дубровский» (гл. 1-3)' },
+        { num: 4, subject: 'География', room: 'Каб. 305', hw: 'Контурная карта стр. 4-5' },
+        { num: 5, subject: 'Информатика', room: 'Каб. 401', hw: 'Создать презентацию о г. Калуга' }
+      ],
+      'Среда': [
+        { num: 1, subject: 'Русский язык', room: 'Каб. 204', hw: 'Подготовка к словарному диктанту' },
+        { num: 2, subject: 'Биология', room: 'Каб. 309', hw: '§9, зарисовать строение клетки в тетрадь' },
+        { num: 3, subject: 'Математика', room: 'Каб. 312', hw: '№428, №430' },
+        { num: 4, subject: 'Обществознание', room: 'Каб. 108', hw: '§6, мини-сочинение «Мои обязанности»' }
+      ],
+      'Четверг': [
+        { num: 1, subject: 'История', room: 'Каб. 108', hw: 'Повторить даты по теме «Древняя Русь»' },
+        { num: 2, subject: 'Английский язык', room: 'Каб. 215', hw: 'Выучить новые слова Module 3a' },
+        { num: 3, subject: 'Русский язык', room: 'Каб. 204', hw: 'Упр. 196' },
+        { num: 4, subject: 'Труд (Технология)', room: 'Мастерская', hw: 'Принести материалы для проекта' }
+      ],
+      'Пятница': [
+        { num: 1, subject: 'Математика', room: 'Каб. 312', hw: 'Повторить правила сложения дробей' },
+        { num: 2, subject: 'Литература', room: 'Каб. 204', hw: 'Пересказ 4 главы' },
+        { num: 3, subject: 'ИЗО', room: 'Каб. 112', hw: 'Альбом, акварельные краски' },
+        { num: 4, subject: 'Физкультура', room: 'Спортзал', hw: 'Кроссовки со светлой подошвой' }
+      ]
+    };
+
+    let members = [
+      { id: 1, name: 'Администратор 6 «А» (Вы)', role: 'admin', duty: 'Создатель и админ сайта' },
+      { id: 2, name: 'Смирнова Алиса', role: 'starosta', duty: 'Староста 6 «А» класса' },
+      { id: 3, name: 'Волков Артём', role: 'editor', duty: 'Фотограф и редактор новостей' },{ id: 4, name: 'Козлова Дарья', role: 'student', duty: 'Учебный сектор' },
+      { id: 5, name: 'Морозов Максим', role: 'student', duty: 'Спортивный сектор' },
+      { id: 6, name: 'Новикова Виктория', role: 'student', duty: 'Культмассовый сектор' }
+    ];
+
+    let newsList = [
+      { emoji: '🚀', title: 'Поездка в Государственный музей истории космонавтики им. К.Э. Циолковского', date: '10 ноября 2026', text: 'Наш 6 «А» класс посетил планетарий и обновленную экспозицию в Калуге. Было невероятно интересно!' },
+      { emoji: '🏆', title: '1 место в школьном турнире по пионерболу!', date: '4 ноября 2026', text: 'Команда нашего класса одержала уверенную победу среди всех 6-х классов школы №45.' },
+      { emoji: '🍂', title: 'Осенний субботник в школьном дворе', date: '25 октября 2026', text: 'Дружно убрали листву на закрепленном участке. Спасибо всем участникам!' }
+    ];
+
+    const photos = [
+      { emoji: '🛸', title: 'В Музее космонавтики', desc: 'Общее фото 6 «А» у ракеты-носителя «Восток» в Калуге', bg: 'linear-gradient(135deg, #1e3a8a, #0ea5e9)' },
+      { emoji: '🥇', title: 'Кубок победителей', desc: 'Награждение нашей сборной в спортзале школы №45', bg: 'linear-gradient(135deg, #78350f, #f59e0b)' },
+      { emoji: '🎓', title: 'День знаний — 6 «А»', desc: 'Торжественная линейка 1 сентября', bg: 'linear-gradient(135deg, #312e81, #6366f1)' },
+      { emoji: '🌳', title: 'Прогулка в парке Циолковского', desc: 'Классный час на свежем воздухе', bg: 'linear-gradient(135deg, #064e3b, #10b981)' }
+    ];
+
+    let announcements = [
+      { title: 'Сбор макулатуры в школе №45', date: 'Важно • До пятницы', text: 'Приносим макулатуру в кабинет 204 до 14:00. Наш класс борется за первое место по школе!' },
+      { title: 'Олимпиада на платформе «Моя Школа»', date: 'Учёба', text: 'Начался школьный этап олимпиады по математике и информатике. Ссылки доступны в дневнике.' }
+    ];
+
+    let activityLogs = [
+      '🟢 Система «Моя Школа» успешно синхронизировала домашние задания для 6 «А»',
+      '👑 Администратор создал официальный портал 6 «А» класса Школы №45 г. Калуги',
+      '📸 Добавлено 4 новых фотографии в галерею класса'
+    ];
+
+    // Helpers
+    function logActivity(text) {
+      const time = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+      activityLogs.unshift(`[${time}] ${text}`);
+      renderActivityLog();
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('sec-' + tabId).classList.add('active');
+      const btn = document.querySelector(`.nav-btn[data-tab="${tabId}"]`);
+      if (btn) btn.classList.add('active');
+    }
+
+    function renderUserPanel() {
+      const panel = document.getElementById('user-panel');
+      const adminBtn = document.getElementById('admin-nav-btn');
+      if (currentUser) {
+        const roleLabels = { admin: 'Админ', starosta: 'Староста', editor: 'Редактор', student: 'Ученик' };
+        panel.innerHTML = `
+          <span class="role-badge role-${currentUser.role}">${roleLabels[currentUser.role]}</span>
+          <span style="font-size: 0.88rem; font-weight: 600;">${currentUser.name}</span>
+          <button class="btn btn-outline" onclick="openModal('auth-modal')">Сменить</button>
+        `;
+        adminBtn.style.display = currentUser.role === 'admin' ? 'inline-block' : 'none';
+      }
+    }
+
+    function renderSchedule() {
+      const tabsEl = document.getElementById('day-tabs');
+      tabsEl.innerHTML = Object.keys(scheduleData).map(day => `
+        <button class="day-tab ${day === selectedDay ? 'active' : ''}" onclick="selectDay('${day}')">${day}</button>
+      `).join('');
+
+      const listEl = document.getElementById('schedule-list');
+      listEl.innerHTML = scheduleData[selectedDay].map(item => `
+        <div class="glass lesson-card">
+          <div><span class="lesson-num">${item.num}</span>
+            <strong style="font-size: 1.05rem;">${item.subject}</strong>
+            <span style="color: var(--text-muted); font-size: 0.85rem; margin-left: 0.6rem;">(${item.room})</span>
+          </div>
+          <div class="hw-badge">📘 ДЗ: ${item.hw}</div>
+        </div>
+      `).join('');
+    }
+
+    function selectDay(day) {
+      selectedDay = day;
+      renderSchedule();
+    }
+
+    function syncMoyaShkola() {
+      const now = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+      document.getElementById('last-sync-text').textContent = `Последнее обновление ДЗ: сегодня в ${now} (Синхронизировано с ФГИС «Моя Школа»)`;
+      logActivity(`Пользователь ${currentUser.name} обновил расписание и ДЗ из «Моей Школы»`);
+      alert('✅ Домашние задания из системы «Моя Школа» успешно обновлены!');
+    }
+
+    function renderNewsAndGallery() {
+      document.getElementById('news-container').innerHTML = newsList.map(n => `
+        <div class="glass news-card">
+          <div class="news-cover">${n.emoji}</div>
+          <div class="news-body">
+            <div style="font-size: 0.8rem; color: #38bdf8; margin-bottom: 0.4rem;">${n.date}</div>
+            <h3 style="margin-bottom: 0.6rem;">${n.title}</h3>
+            <p style="color: var(--text-muted); font-size: 0.92rem;">${n.text}</p>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('gallery-container').innerHTML = photos.map((p, idx) => `
+        <div class="photo-item" style="background: ${p.bg};" onclick="openPhoto(${idx})">
+          <div style="font-size: 3rem; margin-bottom: 0.5rem;">${p.emoji}</div>
+          <strong style="font-size: 0.92rem; text-align: center; padding: 0 0.5rem;">${p.title}</strong>
+        </div>
+      `).join('');
+    }
+
+    function openPhoto(idx) {
+      const p = photos[idx];
+      document.getElementById('photo-modal-emoji').textContent = p.emoji;
+      document.getElementById('photo-modal-title').textContent = p.title;
+      document.getElementById('photo-modal-desc').textContent = p.desc;
+      openModal('photo-modal');
+    }
+
+    function openAddNewsModal() {
+      const title = prompt('Введите заголовок новости для 6 «А» класса:');
+      if (!title) return;
+      const text = prompt('Введите текст новости:');
+      if (!text) return;
+      newsList.unshift({ emoji: '✨', title, date: 'Только что', text });
+      renderNewsAndGallery();
+      logActivity(`Добавлена новость: «${title}»`);
+    }
+
+    function renderMembers() {
+      const roleNames = {
+        admin: 'Администратор',
+        starosta: 'Староста',
+        editor: 'Редактор',
+        student: 'Ученик'
+      };
+      document.getElementById('members-table-body').innerHTML = members.map(m => `
+        <tr>
+          <td><strong>${m.name}</strong></td>
+          <td><span class="role-badge role-${m.role}">${roleNames[m.role]}</span></td>
+          <td style="color: var(--text-muted);">${m.duty}</td>
+          <td style="color: var(--success);">● В сети</td>
+        </tr>
+      `).join('');
+
+      const sel = document.getElementById('admin-user-select');
+      sel.innerHTML = members.map(m => `<option value="${m.id}">${m.name}</option>`).join('');
+    }
+
+    function assignRole() {
+      const userId = Number(document.getElementById('admin-user-select').value);
+      const newRole = document.getElementById('admin-role-select').value;
+      const member = members.find(m => m.id === userId);
+      if (member) {
+        member.role = newRole;
+        renderMembers();
+        logActivity(`Администратор изменил роль участника ${member.name} на «${newRole}»`);
+        alert(`Роль для ${member.name} успешно обновлена!`);
+      }
+    }
+
+    function renderAnnouncements() {
+      const html = announcements.map(a => `
+        <div class="glass" style="padding: 1.25rem; margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;"><strong>${a.title}</strong>
+            <span style="color: var(--warning); font-size: 0.82rem;">${a.date}</span>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.92rem;">${a.text}</p>
+        </div>
+      `).join('');
+      document.getElementById('announcements-list').innerHTML = html;
+      document.getElementById('home-announcements-preview').innerHTML = html;
+    }
+
+    function addAnnouncementPrompt() {
+      const title = prompt('Заголовок объявления:');
+      if (!title) return;
+      const text = prompt('Текст объявления:');
+      if (!text) return;
+      announcements.unshift({ title, date: 'Новое объявление', text });
+      renderAnnouncements();
+      logActivity(`Опубликовано объявление: «${title}»`);
+    }
+
+    function renderActivityLog() {
+      document.getElementById('activity-log-list').innerHTML = activityLogs.map(item => `
+        <div style="padding: 0.55rem 0.85rem; background: rgba(255,255,255,0.04); border-radius: 8px; font-size: 0.85rem; font-family: 'JetBrains Mono', monospace;">
+          ${item}
+        </div>
+      `).join('');
+    }
+
+    // Live Code Editor
+    function applyCustomCode() {
+      const code = document.getElementById('live-css-editor').value;
+      document.getElementById('custom-dynamic-styles').innerHTML = code;
+      logActivity('Администратор обновил CSS-код оформления сайта');
+    }
+
+    function resetCustomCode() {
+      document.getElementById('live-css-editor').value = defaultCSS;
+      applyCustomCode();
+    }
+
+    // Modals & Auth
+    function openModal(id) { document.getElementById(id).classList.add('open'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+    function handleLogin() {
+      const nameInput = document.getElementById('login-name').value.trim();
+      const roleInput = document.getElementById('login-role').value;
+      if (!nameInput) {
+        alert('Пожалуйста, введите имя!');
+        return;
+      }
+      currentUser = { name: nameInput, role: roleInput };
+      if (!members.some(m => m.name === nameInput)) {
+        members.push({ id: Date.now(), name: nameInput, role: roleInput, duty: 'Участник портала' });
+        document.getElementById('stat-students').textContent = 28 + (members.length - 6);
+        renderMembers();
+      }
+      renderUserPanel();
+      closeModal('auth-modal');
+      logActivity(`Вход в систему: ${nameInput} (${roleInput})`);
+      if (roleInput !== 'admin') switchTab('home');
+    }
+
+    // Init App
+    document.getElementById('live-css-editor').value = defaultCSS;
+    renderUserPanel();
+    renderSchedule();
+    renderNewsAndGallery();
+    renderMembers();
+    renderAnnouncements();
+    renderActivityLog();
+  </script>
+</body>
+</html>
