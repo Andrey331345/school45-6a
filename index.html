@@ -965,4 +965,56 @@ align-items: center;
       }
     </script>
   </body>
-</html>
+</html><!-- Кнопка входа (вставьте в подвал сайта) -->
+<div style="text-align: center; margin: 30px 0;">
+  <button onclick="openAdminLogin()" style="background: none; border: none; color: #888; cursor: pointer; font-size: 12px;">🔒 Вход для админа</button>
+</div>
+
+<!-- Панель администратора (скрыта по умолчанию) -->
+<div id="adminPanel" style="display: none; background: #f4f4f4; padding: 20px; margin: 20px auto; max-width: 600px; border-radius: 8px; border: 1px solid #ddd;">
+  <h3>🛠️ Панель администратора</h3>
+  <p>Здесь вы можете изменить расписание или текст на сайте:</p>
+  <textarea id="adminText" style="width: 100%; height: 100px; padding: 8px;" placeholder="Введите новое расписание..."></textarea>
+  <br><br>
+  <button onclick="saveChanges()" style="background: #28a745; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer;">Сохранить изменения</button>
+  <button onclick="logoutAdmin()" style="background: #dc3545; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; margin-left: 10px;">Выйти</button>
+</div>
+
+<!-- Скрипт авторизации и управления -->
+<script>
+  const ADMIN_PASSWORD = "123"; // Можете изменить пароль здесь
+
+  function openAdminLogin() {
+    if (localStorage.getItem("isAdminLoggedIn") === "true") {
+      document.getElementById('adminPanel').style.display = 'block';
+      return;
+    }
+    let password = prompt("Введите пароль администратора:");
+    if (password === ADMIN_PASSWORD) {
+      localStorage.setItem("isAdminLoggedIn", "true");
+      document.getElementById('adminPanel').style.display = 'block';
+      alert("Успешный вход!");
+    } else if (password !== null) {
+      alert("Неверный пароль!");
+    }
+  }
+
+  function saveChanges() {
+    let newContent = document.getElementById('adminText').value;
+    localStorage.setItem("siteAnnouncement", newContent);
+    alert("Изменения сохранены!");
+  }
+
+  function logoutAdmin() {
+    localStorage.removeItem("isAdminLoggedIn");
+    document.getElementById('adminPanel').style.display = 'none';
+    alert("Вы вышли из панели админа.");
+  }
+
+  // Проверка входа при загрузке страницы
+  window.onload = function() {
+    if (localStorage.getItem("isAdminLoggedIn") === "true") {
+      // Если вы уже входили ранее с этого компьютера, можно показать панель по желанию
+    }
+  }
+</script>
