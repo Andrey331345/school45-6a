@@ -934,4 +934,35 @@ align-items: center;
     renderActivityLog();
   </script>
 </body>
+</html><!-- Ваша существующая разметка сайта -->
+    
+    <!-- Добавляем кнопку админа в подвал сайта -->
+    <div style="text-align: center; margin: 30px 0;">
+      <button onclick="openAdminLogin()" style="background: none; border: none; color: #888; cursor: pointer; font-size: 12px;">🔒 Вход для админа</button>
+    </div>
+
+    <!-- Скрипт проверки пароля -->
+    <script>
+      const ADMIN_PASSWORD = "578000"; // Можете потом поменять на свой пароль
+
+      function openAdminLogin() {
+        if (localStorage.getItem("isAdminLoggedIn") === "true") {
+          showAdminPanel();
+          return;
+        }
+        let password = prompt("Введите пароль администратора:");
+        if (password === ADMIN_PASSWORD) {
+          localStorage.setItem("isAdminLoggedIn", "true");
+          alert("Успешный вход!");
+          showAdminPanel();
+        } else if (password !== null) {
+          alert("Неверный пароль!");
+        }
+      }
+
+      function showAdminPanel() {
+        alert("Панель администратора активна!");
+      }
+    </script>
+  </body>
 </html>
